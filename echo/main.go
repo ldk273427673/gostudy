@@ -24,5 +24,29 @@ func main() {
 		return c.String(http.StatusOK, "hello")
 	})
 
-	e.Start(":80")
+	e.GET("/:id", func(c echo.Context) error {
+		id := c.Param("id")
+		return c.String(200, id)
+	})
+	type user struct {
+		name string
+		id   int
+	}
+	e.GET("/user", func(c echo.Context) error {
+		u1 := user{"登科", 2}
+		return c.JSON(200, u1)
+	})
+
+	e.GET("1.html", func(c echo.Context) error {
+		html := "<html><head><title>tizi365.com</title></head><body>欢迎访问fdfdfdfdfd.com</body></html>"
+		return c.HTML(200, html)
+	})
+	// e.POST("/test", func(c echo.Context) error {
+	// 	username := c.FormValue("username")
+	// 	html := "调用模板引擎渲染html页面, username"
+	// 	return c.HTML(http.StatusOK, html)
+	// })
+
+	e.Static("/static", "static")
+	e.Logger.Fatal(e.Start(":80"))
 }
