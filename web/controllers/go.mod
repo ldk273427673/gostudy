@@ -1,4 +1,4 @@
-module web
+module web/controllers
 
 go 1.16
 
